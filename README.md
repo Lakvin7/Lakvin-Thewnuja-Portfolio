@@ -1,16 +1,39 @@
-# Portfolio
+# Lakvin Thewnuja - Portfolio Website
 
-Personal portfolio site built with React, Vite, Framer Motion, and Lucide icons.
+Welcome to my personal portfolio website 🚀  
+This project showcases my work, skills, and passion for web development through a modern, interactive, and visually engaging experience.
 
-## Scripts
+## 🌐 About
 
-- `npm run dev` starts the local development server
-- `npm run build` creates the production bundle
-- `npm run preview` serves the production build locally
-- `npm run lint` runs ESLint
+This portfolio is designed to represent my journey as a developer, highlighting my ability to build responsive, dynamic, and user-focused web applications. It serves as a central hub where visitors can explore my projects, learn about my skills, and connect with me.
 
-## Notes
+## ✨ Features
 
-- Main app entry: `src/App.jsx`
-- Styling lives in `src/App.css` and `src/index.css`
-- Update contact links in `src/App.jsx` with your final email and GitHub profile
+- Smooth animations and interactive UI
+- Modern and responsive design (mobile-friendly)
+- Scroll-based effects and immersive experience
+- Project showcase section
+- About me section with personal insights
+- Contact section for easy communication
+
+## 🛠️ Tech Stack
+
+- HTML / CSS / JavaScript
+- React (if used)
+- Modern UI/UX design principles
+- Animation libraries (GSAP / Framer Motion if used)
+
+## 🎯 Purpose
+
+The goal of this portfolio is to:
+- Demonstrate my front-end development skills
+- Showcase real-world projects
+- Create a strong online presence for opportunities
+
+## 🚀 Deployment
+
+This project is deployed using Vercel for fast and reliable hosting.
+
+## 📬 Contact
+
+Feel free to reach out for collaborations, opportunities, or just to connect!
