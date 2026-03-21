@@ -5,7 +5,7 @@ import SocialIcon from "../common/SocialIcon";
 const FooterSection = memo(function FooterSection() {
   return (
     <footer className="relative z-20 w-full px-0 pb-0 md:px-6 md:pb-8">
-      <div className="mx-auto max-w-6xl rounded-t-[28px] border border-b-0 border-white/35 bg-white/14 px-4 py-5 text-black/45 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-md md:rounded-[24px] md:border-b md:px-5">
+      <div className="mx-auto max-w-6xl rounded-t-[28px] border border-b-0 border-white/35 bg-white/14 px-4 py-5 text-black/45 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-md md:rounded-[24px] md:border-b md:px-5" data-mobile-reveal="true" data-mobile-reveal-delay="0">
         <div className="mt-2 grid grid-cols-4 place-items-center gap-3 sm:flex sm:flex-wrap sm:items-center sm:justify-center">
           <SocialIcon href="https://github.com/Lakvin7" label="GitHub" icon={Github} />
           <SocialIcon href="https://www.linkedin.com/in/lakvin-thewnuja" label="LinkedIn" icon={Linkedin} />

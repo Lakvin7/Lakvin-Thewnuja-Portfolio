@@ -548,62 +548,64 @@ const AboutSection = memo(function AboutSection() {
             <div ref={heroRef} className="abt-stage" style={{ zIndex: 10 }}>
               <div className="abt-well abt-hero-grid">
                 <div className="abt-copy-column">
-                  <div style={{ marginBottom: 26 }}>
+                  <div style={{ marginBottom: 26 }} data-mobile-reveal="true" data-mobile-reveal-delay="0">
                     <h1 ref={title1Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", opacity: 0, willChange: "transform,opacity,filter" }}>More than</h1>
                     <h1 ref={title2Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", color: "rgba(30,30,30,0.45)", opacity: 0, willChange: "transform,opacity,filter" }}>just code.</h1>
                   </div>
-                  <p ref={copyRef} style={{ fontSize: 14, lineHeight: 1.85, fontWeight: 300, color: "rgba(20,20,20,0.62)", maxWidth: 500, marginBottom: 30, opacity: 0, willChange: "transform,opacity" }}>{aboutIntroCopy}</p>
-                  <div ref={tagsRef} style={{ display: "flex", flexWrap: "wrap", gap: 12, opacity: 0, willChange: "transform,opacity" }}>
+                  <p ref={copyRef} data-mobile-reveal="true" data-mobile-reveal-delay="80" style={{ fontSize: 14, lineHeight: 1.85, fontWeight: 300, color: "rgba(20,20,20,0.62)", maxWidth: 500, marginBottom: 30, opacity: 0, willChange: "transform,opacity" }}>{aboutIntroCopy}</p>
+                  <div ref={tagsRef} data-mobile-reveal="true" data-mobile-reveal-delay="140" style={{ display: "flex", flexWrap: "wrap", gap: 12, opacity: 0, willChange: "transform,opacity" }}>
                     {skills.map((skill, index) => (
                       <span key={skill.n} style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.2em", textTransform: "uppercase", padding: "6px 15px", borderRadius: 999, background: index === 0 ? "rgba(0,0,0,0.11)" : "rgba(255,255,255,0.42)", border: index === 0 ? "1px solid rgba(0,0,0,0.16)" : "1px solid rgba(255,255,255,0.65)", color: index === 0 ? "#111" : "#555", backdropFilter: "blur(8px)" }}>{skill.title}</span>
                     ))}
                   </div>
                 </div>
 
-                <div className="abt-portrait-stage">
-                  <div className="abt-portrait-wrap">
-                    {aboutBackdropPortraits.map((portrait, index) => (
-                      <div
-                        key={portrait.alt}
-                        ref={(element) => { backdropPortraitRefs.current[index] = element; }}
-                        className={`abt-back-portrait ${portrait.floatClass}`}
-                        style={{
-                          width: portrait.width,
-                          height: portrait.height,
-                          maxHeight: portrait.maxHeight,
-                          top: portrait.top,
-                          right: portrait.right,
-                          bottom: portrait.bottom,
-                          left: portrait.left,
-                          opacity: 0,
-                        }}
-                      >
-                        <div className="abt-glass" style={{ position: "relative", width: "100%", height: "100%", borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 70px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.42)" }}>
-                          <img
-                            ref={(element) => { backdropPortraitImgRefs.current[index] = element; }}
-                            src={portrait.image}
-                            alt={portrait.alt}
-                            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", willChange: "transform,filter", opacity: 0.9 }}
-                          />
-                          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(165,165,165,0.45) 0%,transparent 42%)", pointerEvents: "none" }} />
+                {!isCompactAboutLayout ? (
+                  <div className="abt-portrait-stage">
+                    <div className="abt-portrait-wrap">
+                      {aboutBackdropPortraits.map((portrait, index) => (
+                        <div
+                          key={portrait.alt}
+                          ref={(element) => { backdropPortraitRefs.current[index] = element; }}
+                          className={`abt-back-portrait ${portrait.floatClass}`}
+                          style={{
+                            width: portrait.width,
+                            height: portrait.height,
+                            maxHeight: portrait.maxHeight,
+                            top: portrait.top,
+                            right: portrait.right,
+                            bottom: portrait.bottom,
+                            left: portrait.left,
+                            opacity: 0,
+                          }}
+                        >
+                          <div className="abt-glass" style={{ position: "relative", width: "100%", height: "100%", borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 70px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.42)" }}>
+                            <img
+                              ref={(element) => { backdropPortraitImgRefs.current[index] = element; }}
+                              src={portrait.image}
+                              alt={portrait.alt}
+                              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", willChange: "transform,filter", opacity: 0.9 }}
+                            />
+                            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(165,165,165,0.45) 0%,transparent 42%)", pointerEvents: "none" }} />
+                          </div>
                         </div>
+                      ))}
+                    <div ref={portraitRef} className="abt-main-portrait">
+                      <div className="abt-glass" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
+                        <div className="abt-main-portrait-media">
+                          <img ref={portraitImgRef} src={activePortraitImage} alt={activePortraitBadge.toLowerCase()} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", willChange: "transform,filter", transition: "opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease" }} />
+                        </div>
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(165,165,165,0.55) 0%,transparent 38%)", pointerEvents: "none" }} />
                       </div>
-                    ))}
-                  <div ref={portraitRef} className="abt-main-portrait">
-                    <div className="abt-glass" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
-                      <div className="abt-main-portrait-media">
-                        <img ref={portraitImgRef} src={activePortraitImage} alt={activePortraitBadge.toLowerCase()} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", willChange: "transform,filter", transition: "opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease" }} />
-                      </div>
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(165,165,165,0.55) 0%,transparent 38%)", pointerEvents: "none" }} />
+                    </div>
                     </div>
                   </div>
-                  </div>
-                </div>
+                ) : null}
               </div>
             </div>
             <div ref={skillsRef} className="abt-stage" style={{ zIndex: 20, opacity: 0 }}>
               <div className="abt-well">
-                <div style={{ marginBottom: 36 }}>
+                <div style={{ marginBottom: 36 }} data-mobile-reveal="true" data-mobile-reveal-delay="0">
                   <h2 ref={skillsHeadingRef} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(2.2rem,4.8vw,3.8rem)", letterSpacing: "0.02em", lineHeight: 1, color: "#111", margin: 0, opacity: 0, willChange: "transform,opacity,filter" }}><span style={{ color: "rgba(20,20,20,0.38)" }}>Tech</span> <span style={{ color: "#111111" }}>Stacks</span></h2>
                   <p ref={skillsCopyRef} style={{ maxWidth: 620, marginTop: 14, fontSize: 14, lineHeight: 1.8, color: "rgba(20,20,20,0.58)", fontWeight: 300, opacity: 0, willChange: "transform,opacity" }}>
                     The tools I use across coding, design, editing, and creative work.
@@ -616,6 +618,8 @@ const AboutSection = memo(function AboutSection() {
                       ref={(element) => { techCardRefs.current[index] = element; }}
                       type="button"
                       className={`abt-tech-card${isCompactAboutLayout && expandedTechName === tech.name ? " is-expanded" : ""}`}
+                      data-mobile-reveal="true"
+                      data-mobile-reveal-delay={String(60 + index * 30)}
                       style={{ opacity: 0, willChange: "transform,opacity,filter" }}
                       onClick={() => {
                         if (!isCompactAboutLayout) return;
@@ -1585,6 +1589,8 @@ const WorkSection = memo(function WorkSection() {
             <div
               ref={topbarRef}
               className="work-topbar transition-[opacity,transform,filter] duration-700 ease-out"
+              data-mobile-reveal="true"
+              data-mobile-reveal-delay="0"
               style={{ opacity: 0, transform: "translateY(26px) scale(0.985)", filter: "blur(8px)" }}
             >
               <div className="work-topbar-copy">
@@ -1700,6 +1706,8 @@ const WorkSection = memo(function WorkSection() {
                     key={`${project.number}-mobile`}
                     type="button"
                     className="work-mobile-card"
+                    data-mobile-reveal="true"
+                    data-mobile-reveal-delay={String(60 + index * 70)}
                     onClick={() => setSelectedMobileProjectIndex(index)}
                   >
                     {project.previewImage ? (
@@ -2176,6 +2184,52 @@ const App = () => {
       revealImageRef.current.src = activeRevealImage;
     }
   }, [activeRevealImage]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mediaQuery = window.matchMedia("(max-width: 900px)");
+    if (!mediaQuery.matches) return undefined;
+
+    const targets = Array.from(document.querySelectorAll("[data-mobile-reveal]"));
+    if (targets.length === 0) return undefined;
+
+    const hiddenStyle = {
+      opacity: "0",
+      transform: "translateY(26px) scale(0.985)",
+      filter: "blur(10px)",
+    };
+    const visibleStyle = {
+      opacity: "1",
+      transform: "translateY(0px) scale(1)",
+      filter: "blur(0px)",
+    };
+
+    targets.forEach((element) => {
+      Object.assign(element.style, hiddenStyle);
+      element.style.transition =
+        "opacity 700ms cubic-bezier(0.16,1,0.3,1), transform 700ms cubic-bezier(0.16,1,0.3,1), filter 700ms ease-out";
+      element.style.transitionDelay = `${Number(element.getAttribute("data-mobile-reveal-delay") || 0)}ms`;
+      element.style.willChange = "opacity, transform, filter";
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            Object.assign(entry.target.style, visibleStyle);
+          }
+        });
+      },
+      { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    targets.forEach((element) => observer.observe(element));
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const canvas = heroGridCanvasRef.current;
@@ -2816,6 +2870,15 @@ const App = () => {
     });
   };
 
+  const scrollToHomeSection = (event) => {
+    event.preventDefault();
+    setHeroMenuOpen(false);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="relative min-h-screen w-full bg-[#c0c0c0] font-sans antialiased">
       <style>{`
@@ -2950,7 +3013,7 @@ const App = () => {
         src="/mouse.png"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[120] h-8 w-8 select-none object-contain"
+        className="pointer-events-none fixed left-0 top-0 z-[120] hidden h-8 w-8 select-none object-contain md:block"
         style={{
           opacity: 0,
           transform: "translate3d(-100px,-100px,0)",
@@ -2967,13 +3030,15 @@ const App = () => {
         <div className="relative mx-auto max-w-6xl rounded-[20px] border border-white/35 bg-white/14 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-md md:rounded-[24px]">
           <div className="pointer-events-auto flex flex-col gap-2.5 p-3.5 md:gap-4 md:p-5">
             <div className="flex items-center justify-between gap-3 md:grid md:grid-cols-[1fr_auto_1fr] md:items-center md:gap-4">
-              <div
-                className="text-left text-[clamp(13px,3.8vw,24px)] italic leading-[0.88] tracking-[0.03em] text-black/45 md:justify-self-start"
+              <button
+                type="button"
+                onClick={scrollToHomeSection}
+                className="m-0 ml-2 border-0 bg-transparent p-0 text-left text-[clamp(13px,3.8vw,24px)] italic leading-[0.88] tracking-[0.03em] text-black/45 transition-colors duration-300 hover:text-black md:ml-3 md:justify-self-start"
                 style={{ fontFamily: '"Alphacorsa Personal Use", "Times New Roman", Georgia, serif' }}
               >
-                <span className="block">Lakvin</span>
+                <span className="block text-[1.18em]">Lakvin</span>
                 <span className="block">Thewnuja</span>
-              </div>
+              </button>
               <nav className="hidden flex-wrap justify-center gap-1 text-[10px] uppercase tracking-[0.2em] text-black/45 md:flex md:gap-1.5 md:text-[11px] md:tracking-[0.24em]">
               <a
                 href="#about"

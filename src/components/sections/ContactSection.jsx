@@ -163,6 +163,8 @@ const ContactSection = memo(function ContactSection() {
           <div
             ref={headingRef}
             className="mb-5 text-left transition-[opacity,transform,filter] duration-700 ease-out md:mb-8 md:text-center"
+            data-mobile-reveal="true"
+            data-mobile-reveal-delay="0"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <h2
@@ -177,6 +179,8 @@ const ContactSection = memo(function ContactSection() {
           <div
             ref={introRef}
             className="mb-7 max-w-2xl transition-[opacity,transform,filter] delay-100 duration-700 ease-out md:mx-auto md:mb-10"
+            data-mobile-reveal="true"
+            data-mobile-reveal-delay="80"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <p
@@ -190,6 +194,8 @@ const ContactSection = memo(function ContactSection() {
           <form
             ref={formRef}
             className="space-y-4 transition-[opacity,transform,filter] delay-150 duration-700 ease-out md:space-y-5"
+            data-mobile-reveal="true"
+            data-mobile-reveal-delay="140"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
