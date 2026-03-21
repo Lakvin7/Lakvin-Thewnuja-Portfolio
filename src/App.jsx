@@ -2803,11 +2803,12 @@ const App = () => {
     const headerOffset = window.innerWidth >= 768 ? 148 : 112;
     const aboutShell = aboutSection.querySelector(".abt-shell");
     const sectionTop = (aboutShell || aboutSection).getBoundingClientRect().top + window.scrollY;
+    const isMobileAboutLayout = window.innerWidth <= 900;
     const shellScrollable = aboutShell
       ? Math.max(aboutShell.offsetHeight - window.innerHeight, 0)
       : 0;
     const firstLayerProgress = 0.34;
-    const firstLayerOffset = shellScrollable * firstLayerProgress;
+    const firstLayerOffset = isMobileAboutLayout ? 0 : shellScrollable * firstLayerProgress;
 
     window.scrollTo({
       top: Math.max(0, sectionTop + firstLayerOffset - headerOffset),
