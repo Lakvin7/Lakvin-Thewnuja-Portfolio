@@ -47,22 +47,81 @@ const AboutSection = memo(function AboutSection() {
   const techCardRefs = useRef([]);
   const [activePortraitBadge, setActivePortraitBadge] = useState("Designer");
   const [isPortraitAutoRotateEnabled, setIsPortraitAutoRotateEnabled] = useState(true);
+  const [isCompactAboutLayout, setIsCompactAboutLayout] = useState(false);
+  const [expandedTechName, setExpandedTechName] = useState(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mediaQuery = window.matchMedia("(max-width: 900px)");
+    const syncLayout = () => setIsCompactAboutLayout(mediaQuery.matches);
+
+    syncLayout();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncLayout);
+      return () => mediaQuery.removeEventListener("change", syncLayout);
+    }
+
+    mediaQuery.addListener(syncLayout);
+    return () => mediaQuery.removeListener(syncLayout);
+  }, []);
 
   useEffect(() => {
     if (!isPortraitAutoRotateEnabled) return undefined;
 
     const intervalId = window.setInterval(() => {
       setActivePortraitBadge((current) => {
+        if (isCompactAboutLayout) {
+          const options = aboutPortraitOrder.filter((item) => item !== current);
+          return options[Math.floor(Math.random() * options.length)] || current;
+        }
+
         const currentIndex = aboutPortraitOrder.indexOf(current);
         const nextIndex = (currentIndex + 1) % aboutPortraitOrder.length;
         return aboutPortraitOrder[nextIndex];
       });
-    }, 10000);
+    }, isCompactAboutLayout ? 2800 : 10000);
 
     return () => window.clearInterval(intervalId);
-  }, [isPortraitAutoRotateEnabled]);
+  }, [isCompactAboutLayout, isPortraitAutoRotateEnabled]);
 
   useLayoutEffect(() => {
+    const resetElementStyles = (element) => {
+      if (!element) return;
+      Object.assign(element.style, {
+        opacity: "",
+        transform: "",
+        filter: "",
+        pointerEvents: "",
+      });
+    };
+
+    if (isCompactAboutLayout) {
+      [
+        heroRef.current,
+        kickerRef.current,
+        title1Ref.current,
+        title2Ref.current,
+        copyRef.current,
+        tagsRef.current,
+        portraitRef.current,
+        portraitImgRef.current,
+        badgeARef.current,
+        badgeBRef.current,
+        badgeCRef.current,
+        badgeDRef.current,
+        skillsRef.current,
+        skillsHeadingRef.current,
+        skillsCopyRef.current,
+        ...backdropPortraitRefs.current,
+        ...backdropPortraitImgRefs.current,
+        ...techCardRefs.current,
+      ].forEach(resetElementStyles);
+
+      return undefined;
+    }
+
     let raf = 0;
     let last = -1;
     let renderedProgress = 0;
@@ -223,10 +282,9 @@ const AboutSection = memo(function AboutSection() {
 
     raf = window.requestAnimationFrame(tick);
     return () => window.cancelAnimationFrame(raf);
-  }, []);
+  }, [isCompactAboutLayout]);
 
-  const activePortraitImage = aboutPortraitOptions[activePortraitBadge] || mainPortraitImage;
-
+  const activePortraitImage = aboutPortraitOptions[activePortraitBadge] || aboutPortraitOptions.Designer;
   const skills = [
     { n: "01", title: "Web Development", body: "Clean, purposeful interfaces. Every spacing decision, every contrast ratio � justified." },
     { n: "02", title: "App Development", body: "Animation that guides attention and gives the experience personality without noise." },
@@ -333,11 +391,154 @@ const AboutSection = memo(function AboutSection() {
           height:26px;
           object-fit:contain;
         }
+        .abt-tech-copy {
+          display:block;
+        }
+        .abt-hero-grid {
+          display:grid;
+          grid-template-columns:minmax(0,1.02fr) minmax(340px,0.98fr);
+          gap:56px 96px;
+          align-items:center;
+        }
+        .abt-copy-column {
+          justify-self:start;
+          margin-left:-18px;
+        }
+        .abt-portrait-stage {
+          display:flex;
+          justify-content:center;
+          perspective:1200px;
+        }
+        .abt-portrait-wrap {
+          position:relative;
+          width:min(100%,450px);
+          height:min(68vh,560px);
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        }
+        .abt-main-portrait {
+          position:relative;
+          width:min(100%,320px);
+          opacity:0;
+          will-change:transform,opacity;
+          transform-style:preserve-3d;
+          z-index:2;
+        }
+        .abt-main-portrait-media {
+          height:58vh;
+          max-height:520px;
+          overflow:hidden;
+        }
+        .abt-badge {
+          position:absolute;
+          border-radius:12px;
+          padding:9px 15px;
+          box-shadow:0 6px 24px rgba(0,0,0,0.10);
+          opacity:0;
+          will-change:transform,opacity;
+          background:rgba(215,215,215,0.52);
+          cursor:pointer;
+        }
+        @media (max-width: 900px) {
+          .abt-shell {
+            height:auto;
+            overflow:visible;
+            padding:56px 0 24px;
+          }
+          .abt-pin {
+            position:relative;
+            height:auto;
+            overflow:visible;
+          }
+          .abt-pin::after {
+            display:none;
+          }
+          .abt-stage {
+            position:relative;
+            inset:auto;
+            min-height:auto;
+            padding:0 18px;
+            justify-content:flex-start;
+          }
+          .abt-stage + .abt-stage {
+            margin-top:56px;
+          }
+          .abt-well {
+            max-width:100%;
+          }
+          .abt-hero-grid {
+            grid-template-columns:1fr;
+            gap:32px;
+          }
+          .abt-copy-column {
+            margin-left:0;
+          }
+          .abt-portrait-wrap {
+            width:100%;
+            height:auto;
+            min-height:auto;
+            padding-top:12px;
+          }
+          .abt-back-portrait {
+            display:none;
+          }
+          .abt-main-portrait {
+            width:min(100%,340px);
+            opacity:1;
+          }
+          .abt-main-portrait-media {
+            height:auto;
+            max-height:none;
+            aspect-ratio:4/5;
+          }
+          .abt-tech-grid {
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:12px;
+          }
+          .abt-tech-card {
+            flex-direction:column;
+            justify-content:center;
+            gap:10px;
+            min-height:84px;
+            padding:16px 12px;
+            text-align:center;
+          }
+          .abt-tech-card.is-expanded {
+            min-height:118px;
+          }
+          .abt-tech-icon {
+            width:52px;
+            height:52px;
+          }
+          .abt-tech-icon img {
+            width:30px;
+            height:30px;
+          }
+          .abt-tech-copy {
+            display:none;
+            width:100%;
+          }
+          .abt-tech-card.is-expanded .abt-tech-copy {
+            display:block;
+          }
+        }
         @media (max-width: 980px) {
           .abt-tech-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
         }
         @media (max-width: 640px) {
-          .abt-tech-grid { grid-template-columns:1fr; }
+          .abt-tech-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+          .abt-stage {
+            padding:0 14px;
+          }
+          .abt-tech-card {
+            padding:14px 10px;
+          }
+        }
+        @media (max-width: 420px) {
+          .abt-tech-grid {
+            grid-template-columns:repeat(2,minmax(0,1fr));
+          }
         }
       `}</style>
 
@@ -345,8 +546,8 @@ const AboutSection = memo(function AboutSection() {
         <section className="abt-shell" ref={shellRef}>
           <div className="abt-pin" ref={stickyRef}>
             <div ref={heroRef} className="abt-stage" style={{ zIndex: 10 }}>
-              <div className="abt-well" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.02fr) minmax(340px,0.98fr)", gap: "56px 96px", alignItems: "center" }}>
-                <div style={{ justifySelf: "start", marginLeft: "-18px" }}>
+              <div className="abt-well abt-hero-grid">
+                <div className="abt-copy-column">
                   <div style={{ marginBottom: 26 }}>
                     <h1 ref={title1Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", opacity: 0, willChange: "transform,opacity,filter" }}>More than</h1>
                     <h1 ref={title2Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", color: "rgba(30,30,30,0.45)", opacity: 0, willChange: "transform,opacity,filter" }}>just code.</h1>
@@ -359,8 +560,8 @@ const AboutSection = memo(function AboutSection() {
                   </div>
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "center", perspective: 1200 }}>
-                  <div style={{ position: "relative", width: "min(100%,450px)", height: "min(68vh,560px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div className="abt-portrait-stage">
+                  <div className="abt-portrait-wrap">
                     {aboutBackdropPortraits.map((portrait, index) => (
                       <div
                         key={portrait.alt}
@@ -388,17 +589,13 @@ const AboutSection = memo(function AboutSection() {
                         </div>
                       </div>
                     ))}
-                  <div ref={portraitRef} style={{ position: "relative", width: "min(100%,320px)", opacity: 0, willChange: "transform,opacity", transformStyle: "preserve-3d", zIndex: 2 }}>
+                  <div ref={portraitRef} className="abt-main-portrait">
                     <div className="abt-glass" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 32px 80px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.7)" }}>
-                      <div style={{ height: "58vh", maxHeight: 520, overflow: "hidden" }}>
+                      <div className="abt-main-portrait-media">
                         <img ref={portraitImgRef} src={activePortraitImage} alt={activePortraitBadge.toLowerCase()} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", willChange: "transform,filter", transition: "opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease" }} />
                       </div>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top,rgba(165,165,165,0.55) 0%,transparent 38%)", pointerEvents: "none" }} />
                     </div>
-                    <button type="button" ref={badgeARef} className="abt-glass abt-float" onClick={() => { setIsPortraitAutoRotateEnabled(false); setActivePortraitBadge("Designer"); }} style={{ position: "absolute", top: "10%", left: "-18%", borderRadius: 12, padding: "9px 15px", boxShadow: "0 6px 24px rgba(0,0,0,0.10)", opacity: 0, willChange: "transform,opacity", border: activePortraitBadge === "Designer" ? "1px solid rgba(65,65,65,0.72)" : "1px solid rgba(255,255,255,0.62)", background: "rgba(215,215,215,0.52)", cursor: "pointer" }}><span style={{ fontSize: 11, fontWeight: 500, color: activePortraitBadge === "Designer" ? "#1F1F1F" : "#333", letterSpacing: "0.04em" }}>Designer</span></button>
-                    <button type="button" ref={badgeBRef} className="abt-glass abt-float2" onClick={() => { setIsPortraitAutoRotateEnabled(false); setActivePortraitBadge("Photographer"); }} style={{ position: "absolute", bottom: "18%", right: "-18%", borderRadius: 12, padding: "9px 15px", boxShadow: "0 6px 24px rgba(0,0,0,0.10)", opacity: 0, willChange: "transform,opacity", border: activePortraitBadge === "Photographer" ? "1px solid rgba(65,65,65,0.72)" : "1px solid rgba(255,255,255,0.62)", background: "rgba(215,215,215,0.52)", cursor: "pointer" }}><span style={{ fontSize: 11, fontWeight: 500, color: activePortraitBadge === "Photographer" ? "#1F1F1F" : "#333", letterSpacing: "0.04em" }}>Photographer</span></button>
-                    <button type="button" ref={badgeCRef} className="abt-glass abt-float2" onClick={() => { setIsPortraitAutoRotateEnabled(false); setActivePortraitBadge("Football"); }} style={{ position: "absolute", top: "4%", right: "-16%", borderRadius: 12, padding: "9px 15px", boxShadow: "0 6px 24px rgba(0,0,0,0.10)", opacity: 0, willChange: "transform,opacity", border: activePortraitBadge === "Football" ? "1px solid rgba(65,65,65,0.72)" : "1px solid rgba(255,255,255,0.62)", background: "rgba(215,215,215,0.52)", cursor: "pointer" }}><span style={{ fontSize: 11, fontWeight: 500, color: activePortraitBadge === "Football" ? "#1F1F1F" : "#333", letterSpacing: "0.04em" }}>Football</span></button>
-                    <button type="button" ref={badgeDRef} className="abt-glass abt-float" onClick={() => { setIsPortraitAutoRotateEnabled(false); setActivePortraitBadge("Gamer"); }} style={{ position: "absolute", bottom: "10%", left: "-14%", borderRadius: 12, padding: "9px 15px", boxShadow: "0 6px 24px rgba(0,0,0,0.10)", opacity: 0, willChange: "transform,opacity", border: activePortraitBadge === "Gamer" ? "1px solid rgba(65,65,65,0.72)" : "1px solid rgba(255,255,255,0.62)", background: "rgba(215,215,215,0.52)", cursor: "pointer" }}><span style={{ fontSize: 11, fontWeight: 500, color: activePortraitBadge === "Gamer" ? "#1F1F1F" : "#333", letterSpacing: "0.04em" }}>Gamer</span></button>
                   </div>
                   </div>
                 </div>
@@ -414,15 +611,25 @@ const AboutSection = memo(function AboutSection() {
                 </div>
                 <div className="abt-tech-grid">
                   {aboutTechStack.map((tech, index) => (
-                    <div key={tech.name} ref={(element) => { techCardRefs.current[index] = element; }} className="abt-tech-card" style={{ opacity: 0, willChange: "transform,opacity,filter" }}>
+                    <button
+                      key={tech.name}
+                      ref={(element) => { techCardRefs.current[index] = element; }}
+                      type="button"
+                      className={`abt-tech-card${isCompactAboutLayout && expandedTechName === tech.name ? " is-expanded" : ""}`}
+                      style={{ opacity: 0, willChange: "transform,opacity,filter" }}
+                      onClick={() => {
+                        if (!isCompactAboutLayout) return;
+                        setExpandedTechName((current) => current === tech.name ? null : tech.name);
+                      }}
+                    >
                       <div className="abt-tech-icon">
                         <img src={tech.icon} alt={tech.name} onError={(event) => { event.currentTarget.style.display = "none"; }} />
                       </div>
-                      <div>
+                      <div className="abt-tech-copy">
                         <div style={{ fontSize: 14, fontWeight: 600, color: "#181818", letterSpacing: "-0.02em" }}>{tech.name}</div>
                         <div style={{ marginTop: 4, fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "#111111", fontWeight: 600 }}>{tech.category}</div>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -492,6 +699,8 @@ function RippleReveal({ ripple, image, onDone }) {
 
 const WorkSection = memo(function WorkSection() {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [isCompactWorkLayout, setIsCompactWorkLayout] = useState(false);
+  const [selectedMobileProjectIndex, setSelectedMobileProjectIndex] = useState(null);
   const sectionRef = useRef(null);
   const shellRef = useRef(null);
   const titleLeadRef = useRef(null);
@@ -499,6 +708,31 @@ const WorkSection = memo(function WorkSection() {
   const featureRef = useRef(null);
   const listCardRefs = useRef([]);
   const activeProject = workProjects[activeProjectIndex];
+  const selectedMobileProject =
+    selectedMobileProjectIndex === null ? null : workProjects[selectedMobileProjectIndex];
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const mediaQuery = window.matchMedia("(max-width: 640px)");
+    const syncLayout = () => {
+      const isCompact = mediaQuery.matches;
+      setIsCompactWorkLayout(isCompact);
+      if (!isCompact) {
+        setSelectedMobileProjectIndex(null);
+      }
+    };
+
+    syncLayout();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncLayout);
+      return () => mediaQuery.removeEventListener("change", syncLayout);
+    }
+
+    mediaQuery.addListener(syncLayout);
+    return () => mediaQuery.removeListener(syncLayout);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -1032,6 +1266,144 @@ const WorkSection = memo(function WorkSection() {
           color: rgba(20,20,20,0.42);
           text-transform: uppercase;
         }
+        .work-mobile-list {
+          display:none;
+        }
+        .work-mobile-card {
+          position:relative;
+          width:100%;
+          min-height:124px;
+          overflow:hidden;
+          border:none;
+          border-radius:22px;
+          padding:0;
+          text-align:left;
+          background:#d6d6d6;
+          box-shadow:0 18px 38px rgba(0,0,0,0.08);
+        }
+        .work-mobile-card img {
+          width:100%;
+          height:100%;
+          object-fit:cover;
+          object-position:center top;
+          display:block;
+        }
+        .work-mobile-overlay {
+          position:absolute;
+          inset:auto 0 0 0;
+          padding:16px 14px 14px;
+          background:linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.24) 22%, rgba(0,0,0,0.72) 100%);
+          color:#fff;
+        }
+        .work-mobile-meta {
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:10px;
+          font-family:'DM Mono', monospace;
+          font-size:9px;
+          letter-spacing:0.16em;
+          text-transform:uppercase;
+          opacity:0.82;
+        }
+        .work-mobile-title {
+          margin-top:8px;
+          font-family:'Bebas Neue', sans-serif;
+          font-size:2rem;
+          line-height:0.92;
+          letter-spacing:0.03em;
+        }
+        .work-mobile-hint {
+          margin-top:6px;
+          font-family:'Outfit', sans-serif;
+          font-size:0.8rem;
+          letter-spacing:0.04em;
+          opacity:0.82;
+        }
+        .work-modal {
+          position:fixed;
+          inset:0;
+          z-index:70;
+          display:flex;
+          align-items:flex-end;
+          justify-content:center;
+          padding:18px 12px 12px;
+          background:rgba(0,0,0,0.42);
+          backdrop-filter:blur(10px);
+          -webkit-backdrop-filter:blur(10px);
+        }
+        .work-modal-card {
+          width:min(100%,520px);
+          max-height:88vh;
+          overflow:auto;
+          border-radius:28px;
+          background:rgba(240,240,240,0.96);
+          box-shadow:0 26px 72px rgba(0,0,0,0.24);
+        }
+        .work-modal-banner {
+          position:relative;
+          aspect-ratio:16/10;
+          overflow:hidden;
+        }
+        .work-modal-banner img {
+          width:100%;
+          height:100%;
+          object-fit:cover;
+          object-position:center top;
+          display:block;
+        }
+        .work-modal-close {
+          position:absolute;
+          top:14px;
+          right:14px;
+          width:38px;
+          height:38px;
+          border:none;
+          border-radius:999px;
+          background:rgba(255,255,255,0.82);
+          color:#111;
+          font-size:18px;
+        }
+        .work-modal-body {
+          padding:18px 16px 18px;
+        }
+        .work-modal-topline {
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:12px;
+          font-family:'DM Mono', monospace;
+          font-size:9px;
+          letter-spacing:0.16em;
+          text-transform:uppercase;
+          color:rgba(20,20,20,0.52);
+        }
+        .work-modal-title {
+          margin-top:10px;
+          font-family:'Bebas Neue', sans-serif;
+          font-size:2.35rem;
+          line-height:0.92;
+          color:#111;
+        }
+        .work-modal-desc {
+          margin-top:10px;
+          font-family:'Outfit', sans-serif;
+          font-size:0.92rem;
+          line-height:1.55;
+          color:rgba(20,20,20,0.68);
+        }
+        .work-modal-stack {
+          display:flex;
+          flex-wrap:wrap;
+          gap:8px;
+          margin-top:14px;
+        }
+        .work-modal-actions {
+          display:grid;
+          grid-template-columns:1fr;
+          gap:8px;
+          margin-top:16px;
+        }
         @media (max-width: 980px) {
           .work-hold {
             height: auto;
@@ -1047,43 +1419,156 @@ const WorkSection = memo(function WorkSection() {
           }
           .work-layout {
             grid-template-columns: 1fr;
+            gap: 14px;
           }
           .work-feature {
-            min-height: 500px;
+            min-height: 460px;
             height: auto;
           }
           .work-list {
             overflow: visible;
+            padding-right: 0;
+          }
+        }
+        @media (max-width: 900px) {
+          .work-topbar {
+            margin-bottom: 16px;
+          }
+          .work-intro {
+            max-width: 100%;
+          }
+          .work-feature {
+            border-radius: 24px;
+          }
+          .work-feature-copy {
+            padding: 16px;
+          }
+          .work-feature-main {
+            padding: 16px 16px 14px;
+            border-radius: 20px;
+          }
+          .work-feature-title {
+            font-size: clamp(2.1rem, 8vw, 3rem);
+          }
+          .work-feature-desc {
+            max-width: 100%;
+          }
+          .work-feature-footer {
+            align-items: flex-start;
+            justify-content: flex-start;
+          }
+          .work-actions {
+            width: 100%;
+            justify-content: flex-start;
+          }
+          .work-list {
+            gap: 10px;
+          }
+          .work-list-card {
+            grid-template-columns: 88px minmax(0, 1fr);
           }
         }
         @media (max-width: 640px) {
           .work-inner {
-            padding: 20px;
+            padding: 0;
           }
           .work-topbar {
             flex-direction: column;
+            gap: 10px;
             margin-bottom: 18px;
           }
           .work-count {
             min-width: 0;
           }
           .work-feature {
-            min-height: 460px;
+            min-height: 420px;
+            border-radius: 22px;
+          }
+          .work-feature,
+          .work-list {
+            display:none;
+          }
+          .work-mobile-list {
+            display:grid;
+            gap:12px;
           }
           .work-feature-copy {
-            padding: 22px;
+            padding: 14px;
+          }
+          .work-feature-head {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
           }
           .work-feature-main {
             width: 100%;
+            padding: 14px;
+            border-radius: 18px;
           }
           .work-feature-title {
-            font-size: 3.2rem;
+            font-size: clamp(1.9rem, 11vw, 2.8rem);
+          }
+          .work-feature-desc {
+            font-size: 0.82rem;
+            line-height: 1.5;
+          }
+          .work-feature-footer {
+            gap: 14px;
+          }
+          .work-stack {
+            gap: 6px;
+          }
+          .work-actions {
+            display: grid;
+            grid-template-columns: 1fr;
+            width: 100%;
+            gap: 8px;
+          }
+          .work-cta {
+            width: 100%;
+            justify-content: center;
           }
           .work-list-card {
             grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 9px;
+            border-radius: 20px;
           }
           .work-list-visual {
-            height: 120px;
+            height: 132px;
+            border-radius: 16px;
+          }
+          .work-list-content {
+            padding: 10px 12px;
+          }
+          .work-list-meta {
+            gap: 8px;
+            font-size: 8px;
+          }
+          .work-list-title {
+            font-size: 0.88rem;
+          }
+          .work-list-desc {
+            font-size: 0.78rem;
+            line-height: 1.45;
+          }
+        }
+        @media (max-width: 420px) {
+          .work-feature {
+            min-height: 390px;
+          }
+          .work-feature-copy {
+            padding: 12px;
+          }
+          .work-feature-main {
+            padding: 12px;
+          }
+          .work-pill {
+            padding: 5px 8px;
+            font-size: 8px;
+          }
+          .work-list-visual {
+            height: 118px;
           }
         }
       `}</style>
@@ -1209,6 +1694,38 @@ const WorkSection = memo(function WorkSection() {
                 </div>
               </article>
 
+              <div className="work-mobile-list" aria-label="Project banners">
+                {workProjects.map((project, index) => (
+                  <button
+                    key={`${project.number}-mobile`}
+                    type="button"
+                    className="work-mobile-card"
+                    onClick={() => setSelectedMobileProjectIndex(index)}
+                  >
+                    {project.previewImage ? (
+                      <img src={project.previewImage} alt={`${project.title} banner`} />
+                    ) : (
+                      <div
+                        style={{
+                          minHeight: 124,
+                          background: project.useNeutralBanner
+                            ? "linear-gradient(135deg, #d7d7d7 0%, #bcbcbc 100%)"
+                            : `linear-gradient(135deg, ${project.accent} 0%, ${project.background} 100%)`,
+                        }}
+                      />
+                    )}
+                    <div className="work-mobile-overlay">
+                      <div className="work-mobile-meta">
+                        <span>{project.number}</span>
+                        <span>{project.tag}</span>
+                      </div>
+                      <div className="work-mobile-title">{project.title}</div>
+                      <div className="work-mobile-hint">Tap to view project details</div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
               <div className="work-list" aria-label="Project list">
                 {workProjects.map((project, index) => (
                   (() => {
@@ -1278,6 +1795,60 @@ const WorkSection = memo(function WorkSection() {
           </div>
         </div>
       </div>
+
+      {isCompactWorkLayout && selectedMobileProject ? (
+        <div className="work-modal" onClick={() => setSelectedMobileProjectIndex(null)}>
+          <div className="work-modal-card" onClick={(event) => event.stopPropagation()}>
+            <div
+              className="work-modal-banner"
+              style={{
+                background: selectedMobileProject.useNeutralBanner
+                  ? "linear-gradient(135deg, #d7d7d7 0%, #bcbcbc 100%)"
+                  : `linear-gradient(135deg, ${selectedMobileProject.accent} 0%, ${selectedMobileProject.background} 100%)`,
+              }}
+            >
+              {selectedMobileProject.previewImage ? (
+                <img src={selectedMobileProject.previewImage} alt={`${selectedMobileProject.title} preview`} />
+              ) : null}
+              <button type="button" className="work-modal-close" onClick={() => setSelectedMobileProjectIndex(null)}>
+                x
+              </button>
+            </div>
+            <div className="work-modal-body">
+              <div className="work-modal-topline">
+                <span>{selectedMobileProject.number}</span>
+                <span>{selectedMobileProject.year}</span>
+                <span>{selectedMobileProject.tag}</span>
+              </div>
+              <div className="work-modal-title">{selectedMobileProject.title}</div>
+              <p className="work-modal-desc">{selectedMobileProject.description}</p>
+              <div className="work-modal-stack">
+                {selectedMobileProject.stack.map((item) => (
+                  <span key={item} className="work-pill">{item}</span>
+                ))}
+              </div>
+              <div className="work-modal-actions">
+                <a href="#contact" className="work-cta" onClick={() => setSelectedMobileProjectIndex(null)}>
+                  Build something like this
+                  <span aria-hidden="true">-&gt;</span>
+                </a>
+                <a
+                  href={selectedMobileProject.visitUrl || "#"}
+                  className="work-cta"
+                  onClick={(event) => {
+                    if (!selectedMobileProject.visitUrl || selectedMobileProject.visitUrl === "#") {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  Visit
+                  <span aria-hidden="true">-&gt;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 });
@@ -2556,6 +3127,13 @@ const App = () => {
               </button>
             </div>
 
+            <div
+              className="pointer-events-none absolute bottom-3 right-3 z-[18] text-[10px] italic leading-none tracking-[0.03em] text-black/45 md:bottom-5 md:right-6 md:text-[11px]"
+              style={{ fontFamily: '"Alphacorsa Personal Use", "Times New Roman", Georgia, serif' }}
+            >
+              92
+            </div>
+
             <img
               className="pointer-events-none absolute inset-0 z-0 h-full w-full select-none object-cover"
               src={backgroundImage}
@@ -2616,7 +3194,7 @@ const App = () => {
         </div>
       </section>
 
-      <main className="relative z-10 rounded-t-[30px] border border-white/20 bg-transparent px-2 pb-20 pt-0 text-[#161616] shadow-none md:rounded-t-[42px] md:px-6 md:pb-24 md:pt-1">
+      <main className="relative z-10 rounded-t-[24px] border border-white/20 bg-transparent px-0 pb-14 pt-0 text-[#161616] shadow-none md:rounded-t-[42px] md:px-6 md:pb-24 md:pt-1">
         <AboutSection />
         <WorkSection />
         <ContactSection />

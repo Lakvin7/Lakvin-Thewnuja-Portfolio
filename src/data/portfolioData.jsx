@@ -12,6 +12,11 @@ import appMindWaveImage from "../assets/Images/appMW.png";
 import mindwaveAppLogoImage from "../assets/Images/mwapplogo.png";
 import mindwavePreviewImage from "../assets/Images/mindwavepreview.png";
 import mindwaveLogoImage from "../assets/Images/mwlogo.png";
+import illustratorIconImage from "../assets/Images/illustrator.jpg";
+import photoshopIconImage from "../assets/Images/psd.jpg";
+import premiereProIconImage from "../assets/Images/Pr.jpg";
+import canvaIconImage from "../assets/Images/Canva.jpg";
+import llmIconImage from "../assets/Images/llm.jpg";
 
 export {
   foregroundImage,
@@ -26,6 +31,11 @@ export {
   mindwaveAppLogoImage,
   mindwavePreviewImage,
   mindwaveLogoImage,
+  illustratorIconImage,
+  photoshopIconImage,
+  premiereProIconImage,
+  canvaIconImage,
+  llmIconImage,
 };
 
 export const heroHoverImages = [foregroundImage, alternateForegroundImage];
@@ -100,13 +110,13 @@ export const aboutTechStack = [
   { name: "React", category: "Front-End", color: "#61DAFB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
   { name: "GitHub", category: "Version", color: "#181717", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
   { name: "Figma", category: "Design", color: "#F24E1E", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-  { name: "Canva", category: "Design", color: "#00C4CC", icon: "https://cdn.simpleicons.org/canva/00C4CC" },
+  { name: "Canva", category: "Design", color: "#00C4CC", icon: canvaIconImage },
   { name: "Firebase", category: "Backend", color: "#FFCA28", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-  { name: "LLM", category: "AI", color: "#412991", icon: "https://cdn.simpleicons.org/openai/412991" },
+  { name: "LLM", category: "AI", color: "#412991", icon: llmIconImage },
   { name: "Databases", category: "Data", color: "#336791", icon: "https://cdn.simpleicons.org/postgresql/336791" },
-  { name: "Illustrator", category: "Adobe", color: "#FF9A00", icon: "https://cdn.simpleicons.org/adobeillustrator/FF9A00" },
-  { name: "Photoshop", category: "Adobe", color: "#31A8FF", icon: "https://cdn.simpleicons.org/adobephotoshop/31A8FF" },
-  { name: "Premiere Pro", category: "Adobe", color: "#9999FF", icon: "https://cdn.simpleicons.org/adobepremierepro/9999FF" },
+  { name: "Illustrator", category: "Adobe", color: "#FF9A00", icon: illustratorIconImage },
+  { name: "Photoshop", category: "Adobe", color: "#31A8FF", icon: photoshopIconImage },
+  { name: "Premiere Pro", category: "Adobe", color: "#9999FF", icon: premiereProIconImage },
   { name: "Blender", category: "3D", color: "#F5792A", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/blender/blender-original.svg" },
 ];
 
@@ -172,6 +182,7 @@ export const workProjects = [
     stack: ["Python", "Desktop App", "PDF Tools"],
     visitUrl: "#",
     sideIcon: BookOpen,
+    useNeutralBanner: true,
     accent: "#7EB8F7",
     background: "#0a0d1a",
     artwork: (
@@ -195,6 +206,7 @@ export const workProjects = [
     stack: ["Python", "Data Analysis", "Reporting"],
     visitUrl: "https://github.com/Lakvin7/FlightDataAnalysisSystem.git",
     sideIcon: Plane,
+    useNeutralBanner: true,
     accent: "#F5C842",
     background: "#0d0a1a",
     artwork: (

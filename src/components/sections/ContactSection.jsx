@@ -85,17 +85,17 @@ const ContactSection = memo(function ContactSection() {
     <section ref={sectionRef} id="contact" className="relative z-20 min-h-[60vh] overflow-hidden px-3 pb-0 pt-12 md:min-h-[64vh] md:px-6 md:pb-0 md:pt-16">
       <style>{`
         .contact-submit {
-          width: 150px;
+          width: 100%;
           padding: 0;
-          padding-bottom: 3px;
+          padding-bottom: 0;
           border: none;
-          border-radius: 5px;
+          border-radius: 16px;
           cursor: pointer;
-          transform: rotate(5deg);
+          transform: none;
           transform-origin: center;
           font-family: 'Outfit', sans-serif;
-          font-size: 15px;
-          letter-spacing: 0.14em;
+          font-size: 13px;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
           box-shadow: 0 2px 0 #575757;
           transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -104,8 +104,8 @@ const ContactSection = memo(function ContactSection() {
 
         .contact-submit span {
           display: block;
-          padding: 0.75rem 1rem;
-          border-radius: 5px;
+          padding: 0.9rem 1rem;
+          border-radius: 16px;
           border: 2px solid #494a4b;
           background: #e7eaee;
           color: #111111;
@@ -115,6 +115,22 @@ const ContactSection = memo(function ContactSection() {
           transform: translateY(5px);
           padding-bottom: 0;
           outline: 0;
+        }
+
+        @media (min-width: 768px) {
+          .contact-submit {
+            width: 150px;
+            padding-bottom: 3px;
+            border-radius: 5px;
+            transform: rotate(5deg);
+            font-size: 15px;
+            letter-spacing: 0.14em;
+          }
+
+          .contact-submit span {
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+          }
         }
       `}</style>
 
@@ -140,17 +156,17 @@ const ContactSection = memo(function ContactSection() {
 
       <div
         ref={shellRef}
-        className="relative mx-auto flex min-h-[60vh] max-w-5xl items-center justify-center px-6 py-8 transition-[opacity,transform,filter] duration-700 ease-out md:min-h-[64vh] md:py-10"
+        className="relative mx-auto flex min-h-[60vh] max-w-5xl items-start justify-center px-4 py-6 transition-[opacity,transform,filter] duration-700 ease-out md:min-h-[64vh] md:items-center md:px-6 md:py-10"
         style={{ opacity: 0, transform: "translateY(34px) scale(0.985)", filter: "blur(10px)" }}
       >
-        <div className="w-full max-w-3xl">
+        <div className="w-full max-w-3xl p-0">
           <div
             ref={headingRef}
-            className="mb-8 text-center transition-[opacity,transform,filter] duration-700 ease-out"
+            className="mb-5 text-left transition-[opacity,transform,filter] duration-700 ease-out md:mb-8 md:text-center"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <h2
-              className="text-[clamp(3.2rem,7vw,6.2rem)] uppercase leading-[0.92] tracking-[0.02em]"
+              className="text-[clamp(2.5rem,14vw,6.2rem)] uppercase leading-[0.92] tracking-[0.02em] md:text-[clamp(3.2rem,7vw,6.2rem)]"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               <span className="text-[#111111]">Get In </span>
@@ -160,11 +176,11 @@ const ContactSection = memo(function ContactSection() {
 
           <div
             ref={introRef}
-            className="mx-auto mb-10 max-w-2xl transition-[opacity,transform,filter] delay-100 duration-700 ease-out"
+            className="mb-7 max-w-2xl transition-[opacity,transform,filter] delay-100 duration-700 ease-out md:mx-auto md:mb-10"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <p
-              className="text-left text-[15px] leading-8 tracking-[0.18em] text-black/78"
+              className="text-left text-[13px] leading-6 tracking-[0.12em] text-black/78 md:text-[15px] md:leading-8 md:tracking-[0.18em]"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               For questions, suggestions, or anything else, a message is enough to contact me.
@@ -173,20 +189,20 @@ const ContactSection = memo(function ContactSection() {
 
           <form
             ref={formRef}
-            className="space-y-5 transition-[opacity,transform,filter] delay-150 duration-700 ease-out"
+            className="space-y-4 transition-[opacity,transform,filter] delay-150 duration-700 ease-out md:space-y-5"
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               <input
                 type="text"
                 placeholder="Please tell me your name?"
-                className="h-14 w-full rounded-[18px] border border-black/15 bg-[#ececec] px-4 text-[15px] tracking-[0.12em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
+                className="h-12 w-full rounded-[16px] border border-black/15 bg-[#ececec] px-4 text-[14px] tracking-[0.06em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a] md:h-14 md:rounded-[18px] md:text-[15px] md:tracking-[0.12em]"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               />
               <input
                 type="email"
                 placeholder="How can I reply to you (e-mail)? *"
-                className="h-14 w-full rounded-[18px] border border-black/15 bg-[#ececec] px-4 text-[15px] tracking-[0.08em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
+                className="h-12 w-full rounded-[16px] border border-black/15 bg-[#ececec] px-4 text-[14px] tracking-[0.05em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a] md:h-14 md:rounded-[18px] md:text-[15px] md:tracking-[0.08em]"
                 style={{ fontFamily: "'Outfit', sans-serif" }}
               />
             </div>
@@ -194,24 +210,24 @@ const ContactSection = memo(function ContactSection() {
             <textarea
               rows={6}
               placeholder="What would you like to talk about? *"
-              className="w-full resize-none rounded-[22px] border border-black/15 bg-[#ececec] px-4 py-4 text-[15px] tracking-[0.08em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
+              className="min-h-[180px] w-full resize-none rounded-[18px] border border-black/15 bg-[#ececec] px-4 py-4 text-[14px] tracking-[0.05em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a] md:rounded-[22px] md:text-[15px] md:tracking-[0.08em]"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             />
 
             <label
-              className="flex items-start gap-3 pt-2 text-[12px] leading-6 tracking-[0.14em] text-black/70"
+              className="flex items-start gap-3 pt-1 text-[11px] leading-5 tracking-[0.08em] text-black/70 md:pt-2 md:text-[12px] md:leading-6 md:tracking-[0.14em]"
               style={{ fontFamily: "'Outfit', sans-serif" }}
             >
               <input
                 type="checkbox"
-                className="mt-1 h-5 w-5 shrink-0 rounded-none border border-black/30 bg-transparent accent-[#7a7a7a]"
+                className="mt-0.5 h-4 w-4 shrink-0 rounded-none border border-black/30 bg-transparent accent-[#7a7a7a] md:mt-1 md:h-5 md:w-5"
               />
               <span>
                 I have taken note of the privacy policy and agree that my information can be used to answer my inquiry by e-mail.
               </span>
             </label>
 
-            <div className="pt-6">
+            <div className="pt-4 md:pt-6">
               <button type="submit" className="contact-submit">
                 <span className="flex items-center justify-center">Submit</span>
               </button>
