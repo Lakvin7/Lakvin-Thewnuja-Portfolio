@@ -1,22 +1,22 @@
 import React from "react";
 import { BookOpen, Plane } from "lucide-react";
-import foregroundImage from "../assets/Images/Asset 10.png";
-import alternateForegroundImage from "../assets/Images/Asset 11.png";
-import mainPortraitImage from "../assets/Images/Asset 13.jpeg";
-import backgroundImage from "../assets/Images/Asset 9.png";
-import alternateBackgroundImage from "../assets/Images/Asset 221.png";
-import footballImage from "../assets/Images/ME2.jpeg";
-import photographerImage from "../assets/Images/photo.jpeg";
-import gamerImage from "../assets/Images/game.jpeg";
-import appMindWaveImage from "../assets/Images/appMW.png";
-import mindwaveAppLogoImage from "../assets/Images/mwapplogo.png";
-import mindwavePreviewImage from "../assets/Images/mindwavepreview.png";
-import mindwaveLogoImage from "../assets/Images/mwlogo.png";
-import illustratorIconImage from "../assets/Images/illustrator.jpg";
-import photoshopIconImage from "../assets/Images/psd.jpg";
-import premiereProIconImage from "../assets/Images/Pr.jpg";
-import canvaIconImage from "../assets/Images/Canva.jpg";
-import llmIconImage from "../assets/Images/llm.jpg";
+import foregroundImage from "../assets/Images/about/foreground-primary.png";
+import alternateForegroundImage from "../assets/Images/about/foreground-secondary.png";
+import mainPortraitImage from "../assets/Images/about/portrait-designer.jpeg";
+import backgroundImage from "../assets/Images/about/background-primary.png";
+import alternateBackgroundImage from "../assets/Images/about/background-secondary.png";
+import footballImage from "../assets/Images/about/portrait-football.jpeg";
+import photographerImage from "../assets/Images/about/portrait-photographer.jpeg";
+import gamerImage from "../assets/Images/about/portrait-gamer.jpeg";
+import appMindWaveImage from "../assets/Images/projects/mindwave-app-preview.png";
+import mindwaveAppLogoImage from "../assets/Images/projects/mindwave-app-logo.png";
+import mindwavePreviewImage from "../assets/Images/projects/mindwave-web-preview.png";
+import mindwaveLogoImage from "../assets/Images/projects/mindwave-web-logo.png";
+import illustratorIconImage from "../assets/Images/tools/illustrator.jpg";
+import photoshopIconImage from "../assets/Images/tools/photoshop.jpg";
+import premiereProIconImage from "../assets/Images/tools/premiere-pro.jpg";
+import canvaIconImage from "../assets/Images/tools/canva.jpg";
+import llmIconImage from "../assets/Images/tools/llm.jpg";
 
 export {
   foregroundImage,

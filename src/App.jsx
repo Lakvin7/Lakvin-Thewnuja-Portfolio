@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
-import { Facebook, FileText, Github, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
+import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Github, Instagram, Linkedin } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import alphacorsaFont from "./assets/Alphacorsa Personal Use.ttf";
-import marqueeExtraLightFont from "./assets/Marquee ExtraLight Regular.otf";
+import alphacorsaFont from "./assets/fonts/alphacorsa.ttf";
+import marqueeExtraLightFont from "./assets/fonts/marquee-extralight.otf";
 import SocialIcon from "./components/common/SocialIcon";
 import ContactSection from "./components/sections/ContactSection";
 import FooterSection from "./components/sections/FooterSection";
@@ -13,7 +13,6 @@ import {
   aboutPortraitOptions,
   aboutPortraitOrder,
   aboutTechStack,
-  alternateForegroundImage,
   backgroundImage,
   foregroundImage,
   heroHoverImages,
@@ -46,7 +45,7 @@ const AboutSection = memo(function AboutSection() {
   const skillsCopyRef = useRef(null);
   const techCardRefs = useRef([]);
   const [activePortraitBadge, setActivePortraitBadge] = useState("Designer");
-  const [isPortraitAutoRotateEnabled, setIsPortraitAutoRotateEnabled] = useState(true);
+  const [isPortraitAutoRotateEnabled] = useState(true);
   const [isCompactAboutLayout, setIsCompactAboutLayout] = useState(false);
   const [expandedTechName, setExpandedTechName] = useState(null);
 
@@ -286,7 +285,7 @@ const AboutSection = memo(function AboutSection() {
 
   const activePortraitImage = aboutPortraitOptions[activePortraitBadge] || aboutPortraitOptions.Designer;
   const skills = [
-    { n: "01", title: "Web Development", body: "Clean, purposeful interfaces. Every spacing decision, every contrast ratio � justified." },
+    { n: "01", title: "Web Development", body: "Clean, purposeful interfaces. Every spacing decision, every contrast ratio ï¿½ justified." },
     { n: "02", title: "App Development", body: "Animation that guides attention and gives the experience personality without noise." },
     { n: "03", title: "Creative Tech", body: "React, Next.js, and code that matches the design spec with care." },
   ];
@@ -1861,217 +1860,6 @@ const WorkSection = memo(function WorkSection() {
   );
 });
 
-const LegacyFooterSection = memo(function LegacyFooterSection() {
-
-  return (
-    <footer className="relative z-20 w-full px-3 pb-5 md:px-6 md:pb-8">
-      <div className="mx-auto max-w-6xl rounded-[20px] border border-white/35 bg-white/14 px-4 py-4 text-black/45 shadow-[0_16px_48px_rgba(0,0,0,0.12)] backdrop-blur-md md:rounded-[24px] md:px-5">
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-          <SocialIcon href="https://github.com/Lakvin7" label="GitHub" icon={Github} />
-          <SocialIcon href="https://www.linkedin.com/in/lakvin-thewnuja" label="LinkedIn" icon={Linkedin} />
-          <SocialIcon href="https://www.instagram.com/lkvnn7" label="Instagram" icon={Instagram} />
-          <SocialIcon href="https://www.facebook.com/" label="Facebook" icon={Facebook} />
-          <SocialIcon href="https://www.youtube.com/" label="YouTube" icon={Youtube} />
-          <SocialIcon href="mailto:thewnujalakvin@gmail.com" label="Email" icon={Mail} target="_self" rel={undefined} />
-          <SocialIcon href="/cv.pdf" label="CV" icon={FileText} />
-        </div>
-        <div className="mt-4 text-center text-[11px] uppercase tracking-[0.24em] text-black/45">
-          <span>Copyright © 2026. All rights reserved.</span>
-        </div>
-        <div className="mt-3 text-center text-sm text-black/45">You will always be my moon💗 </div>
-      </div>
-    </footer>
-  );
-});
-
-const LegacyContactSection = memo(function LegacyContactSection() {
-  const sectionRef = useRef(null);
-  const headingRef = useRef(null);
-  const introRef = useRef(null);
-  const formRef = useRef(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const elements = [headingRef.current, introRef.current, formRef.current].filter(Boolean);
-    if (!section || elements.length === 0) return undefined;
-
-    const hiddenStates = [
-      { opacity: "0", transform: "translateY(28px)", filter: "blur(10px)" },
-      { opacity: "0", transform: "translateY(28px)", filter: "blur(10px)" },
-      { opacity: "0", transform: "translateY(28px)", filter: "blur(10px)" },
-    ];
-    const visibleState = { opacity: "1", transform: "translateY(0px)", filter: "blur(0px)" };
-    const setRevealState = (isVisible) => {
-      elements.forEach((element, index) => {
-        Object.assign(element.style, isVisible ? visibleState : hiddenStates[index]);
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setRevealState(true);
-            return;
-          }
-
-          const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-          const hasMovedFarAway =
-            entry.boundingClientRect.bottom < viewportHeight * 0.2 ||
-            entry.boundingClientRect.top > viewportHeight * 0.8;
-
-          if (hasMovedFarAway) {
-            setRevealState(false);
-          }
-        });
-      },
-      { threshold: 0.18, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <section ref={sectionRef} id="contact" className="relative z-20 min-h-[60vh] overflow-hidden px-3 pb-0 pt-2 md:min-h-[64vh] md:px-6 md:pb-0 md:pt-4">
-      <style>{`
-        .contact-submit {
-          width: 150px;
-          padding: 0;
-          padding-bottom: 3px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          transform: rotate(5deg);
-          transform-origin: center;
-          font-family: 'Outfit', sans-serif;
-          font-size: 15px;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          box-shadow: 0 2px 0 #575757;
-          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          background-color: #8d8d8d;
-        }
-
-        .contact-submit span {
-          display: block;
-          padding: 0.75rem 1rem;
-          border-radius: 5px;
-          border: 2px solid #494a4b;
-          background: #e7eaee;
-          color: #111111;
-        }
-
-        .contact-submit:active {
-          transform: translateY(5px);
-          padding-bottom: 0;
-          outline: 0;
-        }
-      `}</style>
-
-      <div className="pointer-events-none absolute inset-0 opacity-[0.12]">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06) 0, transparent 35%),
-              radial-gradient(circle at 80% 30%, rgba(255,255,255,0.04) 0, transparent 30%),
-              radial-gradient(circle at 50% 80%, rgba(255,255,255,0.03) 0, transparent 35%),
-              repeating-linear-gradient(
-                90deg,
-                rgba(255,255,255,0.03) 0px,
-                rgba(255,255,255,0.03) 1px,
-                transparent 1px,
-                transparent 6px
-              )
-            `,
-          }}
-        />
-      </div>
-
-      <div className="relative mx-auto flex min-h-[60vh] max-w-5xl items-center justify-center px-6 py-6 md:min-h-[64vh] md:py-8">
-        <div className="w-full max-w-3xl">
-          <div
-            ref={headingRef}
-            className="mb-8 text-center transition-[opacity,transform,filter] duration-700 ease-out"
-            style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
-          >
-            <h2
-              className="text-[clamp(3.2rem,7vw,6.2rem)] uppercase leading-[0.92] tracking-[0.02em]"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-            >
-              <span className="text-[#111111]">Get In </span>
-              <span className="text-[#7a7a7a]">Touch</span>
-            </h2>
-          </div>
-
-          <div
-            ref={introRef}
-            className="mx-auto mb-10 max-w-2xl transition-[opacity,transform,filter] delay-100 duration-700 ease-out"
-            style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
-          >
-            <p
-              className="text-left text-[15px] leading-8 tracking-[0.18em] text-black/78"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            >
-              For questions, suggestions, or anything else, a message is enough to contact me.
-            </p>
-          </div>
-
-          <form
-            ref={formRef}
-            className="space-y-5 transition-[opacity,transform,filter] delay-150 duration-700 ease-out"
-            style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
-          >
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Please tell me your name?"
-                className="h-14 w-full rounded-[18px] border border-black/15 bg-[#ececec] px-4 text-[15px] tracking-[0.12em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
-                style={{ fontFamily: "'Outfit', sans-serif" }}
-              />
-              <input
-                type="email"
-                placeholder="How can I reply to you (e-mail)? *"
-                className="h-14 w-full rounded-[18px] border border-black/15 bg-[#ececec] px-4 text-[15px] tracking-[0.08em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
-                style={{ fontFamily: "'Outfit', sans-serif" }}
-              />
-            </div>
-
-            <textarea
-              rows={6}
-              placeholder="What would you like to talk about? *"
-              className="w-full resize-none rounded-[22px] border border-black/15 bg-[#ececec] px-4 py-4 text-[15px] tracking-[0.08em] text-black outline-none placeholder:text-black/70 focus:border-[#7a7a7a]"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            />
-
-            <label
-              className="flex items-start gap-3 pt-2 text-[12px] leading-6 tracking-[0.14em] text-black/70"
-              style={{ fontFamily: "'Outfit', sans-serif" }}
-            >
-              <input
-                type="checkbox"
-                className="mt-1 h-5 w-5 shrink-0 rounded-none border border-black/30 bg-transparent accent-[#7a7a7a]"
-              />
-              <span>
-                I have taken note of the privacy policy and agree that my information can be used to answer my inquiry by e-mail.
-              </span>
-            </label>
-
-            <div className="pt-6">
-              <button type="submit" className="contact-submit">
-                <span className="flex items-center justify-center">
-                  Submit
-                </span>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-});
-
 const App = () => {
   const [ripples, setRipples] = useState([]);
   const [hoveredHeaderItem, setHoveredHeaderItem] = useState(null);
@@ -2563,7 +2351,7 @@ const App = () => {
     handlePointerLeave();
   };
 
-  const renderPointerFrame = (time) => {
+  function renderPointerFrame(time) {
     const pointer = pointerRef.current;
     const pointerMotion = pointerMotionRef.current;
     const heroIsStatic = heroIsStaticRef.current;
@@ -2625,12 +2413,13 @@ const App = () => {
     }
 
     pointerFrameRef.current = window.requestAnimationFrame(renderPointerFrame);
-  };
+  }
 
   useEffect(() => {
     heroMenuOpenRef.current = heroMenuOpen;
   }, [heroMenuOpen]);
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     const roundTo = (value, precision = 1000) => Math.round(value * precision) / precision;
 
@@ -2848,6 +2637,7 @@ const App = () => {
       document.body.style.cursor = "auto";
     };
   }, []);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   const scrollToAboutSection = (event) => {
     event.preventDefault();

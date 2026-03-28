@@ -1,39 +1,32 @@
-# Lakvin Thewnuja - Portfolio Website
+# Lakvin Thewnuja Portfolio
 
-Welcome to my personal portfolio website 🚀  
-This project showcases my work, skills, and passion for web development through a modern, interactive, and visually engaging experience.
+Interactive personal portfolio built with React, Vite, GSAP, and Tailwind CSS.
 
-## 🌐 About
+## Stack
 
-This portfolio is designed to represent my journey as a developer, highlighting my ability to build responsive, dynamic, and user-focused web applications. It serves as a central hub where visitors can explore my projects, learn about my skills, and connect with me.
+- React 19
+- Vite 7
+- GSAP
+- Tailwind CSS 4
+- Lucide React
 
-## ✨ Features
+## Scripts
 
-- Smooth animations and interactive UI
-- Modern and responsive design (mobile-friendly)
-- Scroll-based effects and immersive experience
-- Project showcase section
-- About me section with personal insights
-- Contact section for easy communication
+- `npm run dev` starts the local dev server
+- `npm run build` creates a production build
+- `npm run lint` runs ESLint
+- `npm run preview` serves the production build locally
 
-## 🛠️ Tech Stack
+## Project Structure
 
-- HTML / CSS / JavaScript
-- React (if used)
-- Modern UI/UX design principles
-- Animation libraries (GSAP / Framer Motion if used)
+- `public/` stores static public assets
+- `src/assets/fonts/` stores local font files
+- `src/assets/Images/about/` stores hero and about-section imagery
+- `src/assets/Images/projects/` stores project showcase artwork
+- `src/assets/Images/tools/` stores tool and skill icons
+- `src/components/` stores reusable UI pieces and sections
+- `src/data/portfolioData.jsx` stores portfolio content and asset wiring
 
-## 🎯 Purpose
+## Notes
 
-The goal of this portfolio is to:
-- Demonstrate my front-end development skills
-- Showcase real-world projects
-- Create a strong online presence for opportunities
-
-## 🚀 Deployment
-
-This project is deployed using Vercel for fast and reliable hosting.
-
-## 📬 Contact
-
-Feel free to reach out for collaborations, opportunities, or just to connect!
+The `dist/` build output is intentionally ignored and should be regenerated with `npm run build` when needed.
