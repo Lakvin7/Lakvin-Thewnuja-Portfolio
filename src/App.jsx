@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Github, Instagram, Linkedin } from "lucide-react";
+import { FileText, Github, Instagram, Linkedin } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import alphacorsaFont from "./assets/fonts/alphacorsa.ttf";
@@ -14,6 +14,7 @@ import {
   aboutPortraitOrder,
   aboutTechStack,
   backgroundImage,
+  cvDownloadUrl,
   foregroundImage,
   heroHoverImages,
   workProjects,
@@ -3125,6 +3126,7 @@ const App = () => {
             <SocialIcon href="https://www.instagram.com/lkvnn7" label="Instagram" icon={Instagram} />
             <SocialIcon href="https://github.com/Lakvin7" label="GitHub" icon={Github} />
             <SocialIcon href="https://www.linkedin.com/in/lakvin-thewnuja" label="LinkedIn" icon={Linkedin} />
+            <SocialIcon href={cvDownloadUrl} label="Download CV" icon={FileText} />
           </div>
         </div>
       </div>

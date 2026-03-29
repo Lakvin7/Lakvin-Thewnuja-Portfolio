@@ -1,6 +1,7 @@
 import React, { memo } from "react";
-import { Facebook, Github, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
+import { Facebook, FileText, Github, Instagram, Linkedin, Mail, Youtube } from "lucide-react";
 import SocialIcon from "../common/SocialIcon";
+import { cvDownloadUrl } from "../../data/portfolioData";
 
 const FooterSection = memo(function FooterSection() {
   return (
@@ -16,6 +17,7 @@ const FooterSection = memo(function FooterSection() {
           <SocialIcon href="https://www.instagram.com/lkvnn7" label="Instagram" icon={Instagram} />
           <SocialIcon href="https://www.facebook.com/" label="Facebook" icon={Facebook} />
           <SocialIcon href="https://www.youtube.com/" label="YouTube" icon={Youtube} />
+          <SocialIcon href={cvDownloadUrl} label="Download CV" icon={FileText} />
           <SocialIcon href="mailto:thewnujalakvin@gmail.com" label="Email" icon={Mail} target="_self" rel={undefined} />
         </div>
         <div className="mt-5 text-center text-[10px] uppercase tracking-[0.18em] text-black/45 md:text-[11px] md:tracking-[0.24em]">

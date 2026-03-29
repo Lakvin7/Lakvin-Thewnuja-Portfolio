@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useRef } from "react";
+import { cvDownloadUrl } from "../../data/portfolioData";
 
 const ContactSection = memo(function ContactSection() {
   const sectionRef = useRef(null);
@@ -117,6 +118,32 @@ const ContactSection = memo(function ContactSection() {
           outline: 0;
         }
 
+        .contact-cv-link {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 48px;
+          padding: 0.85rem 1.2rem;
+          border-radius: 16px;
+          border: 1px solid rgba(17, 17, 17, 0.18);
+          background: rgba(255, 255, 255, 0.34);
+          color: #111111;
+          font-family: 'Outfit', sans-serif;
+          font-size: 13px;
+          letter-spacing: 0.12em;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+
+        .contact-cv-link:hover {
+          transform: translateY(-2px);
+          border-color: rgba(0, 11, 141, 0.28);
+          background: rgba(255, 255, 255, 0.5);
+        }
+
         @media (min-width: 768px) {
           .contact-submit {
             width: 150px;
@@ -130,6 +157,13 @@ const ContactSection = memo(function ContactSection() {
           .contact-submit span {
             padding: 0.75rem 1rem;
             border-radius: 5px;
+          }
+
+          .contact-cv-link {
+            min-height: 52px;
+            border-radius: 18px;
+            font-size: 14px;
+            letter-spacing: 0.14em;
           }
         }
       `}</style>
@@ -189,6 +223,11 @@ const ContactSection = memo(function ContactSection() {
             >
               For questions, suggestions, or anything else, a message is enough to contact me.
             </p>
+            <div className="mt-4 flex flex-wrap gap-3 md:mt-5 md:justify-center">
+              <a href={cvDownloadUrl} download="Lakvin-Thewnuja-CV.pdf" target="_blank" rel="noreferrer" className="contact-cv-link">
+                Download CV
+              </a>
+            </div>
           </div>
 
           <form

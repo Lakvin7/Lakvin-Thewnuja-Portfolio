@@ -17,6 +17,7 @@ import photoshopIconImage from "../assets/Images/tools/photoshop.jpg";
 import premiereProIconImage from "../assets/Images/tools/premiere-pro.jpg";
 import canvaIconImage from "../assets/Images/tools/canva.jpg";
 import llmIconImage from "../assets/Images/tools/llm.jpg";
+import cvPdf from "../cv/Lakvin-Thewnuja-CV.pdf";
 
 export {
   foregroundImage,
@@ -36,7 +37,10 @@ export {
   premiereProIconImage,
   canvaIconImage,
   llmIconImage,
+  cvPdf,
 };
+
+export const cvDownloadUrl = cvPdf;
 
 export const heroHoverImages = [foregroundImage, alternateForegroundImage];
 
