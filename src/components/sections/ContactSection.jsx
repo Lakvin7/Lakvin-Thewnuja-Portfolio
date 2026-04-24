@@ -202,7 +202,7 @@ const ContactSection = memo(function ContactSection() {
             style={{ opacity: 0, transform: "translateY(28px)", filter: "blur(10px)" }}
           >
             <h2
-              className="text-[clamp(2.5rem,14vw,6.2rem)] uppercase leading-[0.92] tracking-[0.02em] md:text-[clamp(3.2rem,7vw,6.2rem)]"
+              className="text-[clamp(2.45rem,11vw,5.5rem)] uppercase leading-[0.96] tracking-normal md:text-[clamp(3.2rem,7vw,6.2rem)]"
               style={{ fontFamily: "'Bebas Neue', sans-serif" }}
             >
               <span className="text-[#111111]">Get In </span>

@@ -1,4 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Alphacorsa Personal Use";
+  src: url("./assets/fonts/alphacorsa.ttf") format("truetype");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Marquee ExtraLight Regular";
+  src: url("./assets/fonts/marquee-extralight.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
 
 html,
 body,
@@ -15,7 +32,11 @@ body {
   min-width: 320px;
   background: #c0c0c0;
   color: #050505;
-  font-family: Inter, "Segoe UI", sans-serif;
+  font-family: Outfit, Inter, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {

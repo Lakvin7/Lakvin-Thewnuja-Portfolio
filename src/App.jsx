@@ -286,14 +286,14 @@ const AboutSection = memo(function AboutSection() {
 
   const activePortraitImage = aboutPortraitOptions[activePortraitBadge] || aboutPortraitOptions.Designer;
   const skills = [
-    { n: "01", title: "Web Development", body: "Clean, purposeful interfaces. Every spacing decision, every contrast ratio ï¿½ justified." },
+    { n: "01", title: "Web Development", body: "Clean, purposeful interfaces. Every spacing decision and every contrast ratio is intentional." },
     { n: "02", title: "App Development", body: "Animation that guides attention and gives the experience personality without noise." },
     { n: "03", title: "Creative Tech", body: "React, Next.js, and code that matches the design spec with care." },
   ];
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap');
         .abt-shell,
         .abt-shell *,
         .abt-shell *::before,
@@ -549,8 +549,8 @@ const AboutSection = memo(function AboutSection() {
               <div className="abt-well abt-hero-grid">
                 <div className="abt-copy-column">
                   <div style={{ marginBottom: 26 }} data-mobile-reveal="true" data-mobile-reveal-delay="0">
-                    <h1 ref={title1Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", opacity: 0, willChange: "transform,opacity,filter" }}>More than</h1>
-                    <h1 ref={title2Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.6rem,6.5vw,7rem)", lineHeight: 0.92, letterSpacing: "0.01em", color: "rgba(30,30,30,0.45)", opacity: 0, willChange: "transform,opacity,filter" }}>just code.</h1>
+                    <h1 ref={title1Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.2rem,6vw,7rem)", lineHeight: 0.94, letterSpacing: 0, opacity: 0, willChange: "transform,opacity,filter" }}>More than</h1>
+                    <h1 ref={title2Ref} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(3.2rem,6vw,7rem)", lineHeight: 0.94, letterSpacing: 0, color: "rgba(30,30,30,0.45)", opacity: 0, willChange: "transform,opacity,filter" }}>just code.</h1>
                   </div>
                   <p ref={copyRef} data-mobile-reveal="true" data-mobile-reveal-delay="80" style={{ fontSize: 14, lineHeight: 1.85, fontWeight: 300, color: "rgba(20,20,20,0.62)", maxWidth: 500, marginBottom: 30, opacity: 0, willChange: "transform,opacity" }}>{aboutIntroCopy}</p>
                   <div ref={tagsRef} data-mobile-reveal="true" data-mobile-reveal-delay="140" style={{ display: "flex", flexWrap: "wrap", gap: 12, opacity: 0, willChange: "transform,opacity" }}>
@@ -606,7 +606,7 @@ const AboutSection = memo(function AboutSection() {
             <div ref={skillsRef} className="abt-stage" style={{ zIndex: 20, opacity: 0 }}>
               <div className="abt-well">
                 <div style={{ marginBottom: 36 }} data-mobile-reveal="true" data-mobile-reveal-delay="0">
-                  <h2 ref={skillsHeadingRef} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(2.2rem,4.8vw,3.8rem)", letterSpacing: "0.02em", lineHeight: 1, color: "#111", margin: 0, opacity: 0, willChange: "transform,opacity,filter" }}><span style={{ color: "rgba(20,20,20,0.38)" }}>Tech</span> <span style={{ color: "#111111" }}>Stacks</span></h2>
+                  <h2 ref={skillsHeadingRef} style={{ fontFamily: "'Bebas Neue',sans-serif", fontSize: "clamp(2.2rem,4.8vw,3.8rem)", letterSpacing: 0, lineHeight: 1, color: "#111", margin: 0, opacity: 0, willChange: "transform,opacity,filter" }}><span style={{ color: "rgba(20,20,20,0.38)" }}>Tech</span> <span style={{ color: "#111111" }}>Stacks</span></h2>
                   <p ref={skillsCopyRef} style={{ maxWidth: 620, marginTop: 14, fontSize: 14, lineHeight: 1.8, color: "rgba(20,20,20,0.58)", fontWeight: 300, opacity: 0, willChange: "transform,opacity" }}>
                     The tools I use across coding, design, editing, and creative work.
                   </p>
@@ -890,7 +890,7 @@ const WorkSection = memo(function WorkSection() {
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(2.2rem, 4.8vw, 3.8rem);
           line-height: 0.94;
-          letter-spacing: 0.02em;
+          letter-spacing: 0;
           color: rgba(20,20,20,0.88);
         }
         .work-title span {
@@ -1045,8 +1045,8 @@ const WorkSection = memo(function WorkSection() {
           margin-top: 8px;
           font-family: 'Bebas Neue', sans-serif;
           font-size: clamp(1.95rem, 3.1vw, 2.9rem);
-          line-height: 0.94;
-          letter-spacing: 0.03em;
+          line-height: 0.98;
+          letter-spacing: 0;
           color: rgba(16,16,16,0.92);
         }
         .work-feature-desc {
@@ -1252,7 +1252,7 @@ const WorkSection = memo(function WorkSection() {
           font-family: 'Outfit', sans-serif;
           font-size: 0.92rem;
           font-weight: 700;
-          letter-spacing: -0.02em;
+          letter-spacing: 0;
           color: rgba(16,16,16,0.84);
         }
         .work-list-desc {
@@ -1452,7 +1452,7 @@ const WorkSection = memo(function WorkSection() {
             border-radius: 20px;
           }
           .work-feature-title {
-            font-size: clamp(2.1rem, 8vw, 3rem);
+            font-size: clamp(2rem, 7vw, 3rem);
           }
           .work-feature-desc {
             max-width: 100%;
@@ -1510,7 +1510,7 @@ const WorkSection = memo(function WorkSection() {
             border-radius: 18px;
           }
           .work-feature-title {
-            font-size: clamp(1.9rem, 11vw, 2.8rem);
+            font-size: clamp(1.85rem, 9vw, 2.65rem);
           }
           .work-feature-desc {
             font-size: 0.82rem;
@@ -2673,7 +2673,7 @@ const App = () => {
   return (
     <div className="relative min-h-screen w-full bg-[#c0c0c0] font-sans antialiased">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Black+Han+Sans&family=Inter:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre:wght@400;700&family=Inter:wght@500;600&display=swap');
 
         @font-face {
           font-family: 'Alphacorsa Personal Use';
@@ -2824,7 +2824,7 @@ const App = () => {
               <button
                 type="button"
                 onClick={scrollToHomeSection}
-                className="m-0 ml-2 border-0 bg-transparent p-0 text-left text-[clamp(13px,3.8vw,24px)] italic leading-[0.88] tracking-[0.03em] text-black/45 transition-colors duration-300 hover:text-black md:ml-3 md:justify-self-start"
+                className="m-0 ml-2 border-0 bg-transparent p-0 text-left text-[clamp(14px,3vw,22px)] italic leading-[0.92] tracking-[0.03em] text-black/45 transition-colors duration-300 hover:text-black md:ml-3 md:justify-self-start"
                 style={{ fontFamily: '"Alphacorsa Personal Use", "Times New Roman", Georgia, serif' }}
               >
                 <span className="block text-[1.18em]">Lakvin</span>
@@ -2886,7 +2886,7 @@ const App = () => {
               style={{ opacity: 0, transform: "translateX(-62vw) scale(1)", transformOrigin: "center center", willChange: "transform, opacity" }}
             >
               <div
-                className="flex w-max whitespace-nowrap text-[clamp(72px,12vw,220px)] font-bold uppercase leading-[0.84] tracking-[-0.08em] text-white/68"
+                className="flex w-max whitespace-nowrap text-[clamp(56px,10vw,180px)] font-bold uppercase leading-[0.9] tracking-normal text-white/68"
                 style={{
                   fontFamily: '"Averia Serif Libre", serif',
                   animation: "heroMarqueeLeft 24s linear infinite",
@@ -2905,7 +2905,7 @@ const App = () => {
               style={{ opacity: 0, transform: "translateX(62vw) scale(1)", transformOrigin: "center center", willChange: "transform, opacity" }}
             >
               <div
-                className="flex w-max whitespace-nowrap text-[clamp(72px,12vw,220px)] font-bold uppercase leading-[0.84] tracking-[-0.08em] text-white/54"
+                className="flex w-max whitespace-nowrap text-[clamp(56px,10vw,180px)] font-bold uppercase leading-[0.9] tracking-normal text-white/54"
                 style={{
                   fontFamily: '"Averia Serif Libre", serif',
                   animation: "heroMarqueeRight 28s linear infinite",
@@ -2942,7 +2942,7 @@ const App = () => {
             <div className="pointer-events-none absolute left-4 top-4 z-[18] flex md:left-10 md:top-10">
               <div
                 ref={heroLogoRef}
-                className="text-[clamp(15px,4.4vw,38px)] italic leading-[0.9] tracking-[0.03em] text-black/48"
+                className="text-[clamp(16px,3.4vw,34px)] italic leading-[0.94] tracking-[0.03em] text-black/48"
                 style={{
                   fontFamily: '"Alphacorsa Personal Use", "Times New Roman", Georgia, serif',
                   opacity: 1,
